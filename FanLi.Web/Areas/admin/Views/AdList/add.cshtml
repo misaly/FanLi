@@ -1,0 +1,67 @@
+﻿@model FanLi.Web.Areas.admin.Models.AdListAddViewModel
+@{
+    ViewBag.Title = "添加广告";
+}
+
+<section>
+    @using (Html.BeginForm("add", "AdList", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="rightTab">
+            <ul>
+                <li><a href="/admin/AdList/">广告列表</a></li>
+                <li class="current"><a href="/admin/AdList/add">添加广告</a></li>
+                <li><a href="/admin/AdList/listPosition">广告位列表</a></li>
+                <li><a href="/admin/AdList/addPosition">添加广告位</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="ulColumn2">
+                <li>
+                    @Html.LabelFor(model => model.Title, new { @class = "item_name" })
+                    @Html.TextBoxFor(model => model.Title, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Img, new { @class = "item_name" })
+                    <div class="divUpload" id="divIMG">
+                        <img id="Img" class="fileuploadImg" />
+
+                        <div class="uploadTip"><span>选择图片</span></div>
+
+                        <input type="file" name="fileIMG" id="fileIMG" class="files" onchange="PreviewImage(this, 'Img', 'divIMG')" />
+                    </div>
+                    
+                    @Html.ValidationMessageFor(model => model.Img) 
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.AdPositionId, new { @class = "item_name" }) 
+                    @Html.DropDownListFor(m => m.AdPositionId, ViewData["PositionList"] as IEnumerable<SelectListItem>) 
+                    @Html.ValidationMessageFor(model => model.AdPositionId, "", new { @class = "errorTips" })
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Src, new { @class = "item_name" })
+
+                    @Html.TextBoxFor(model => model.Src, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Src, "", new { @class = "errorTips" })
+
+                </li>
+
+                <li>
+                    @Html.LabelFor(model => model.IsShow, new { @class = "item_name" })
+                    @Html.CheckBoxFor(model =>model.IsShow) 
+                    @Html.ValidationMessageFor(model => model.IsShow, "", new { @class = "errorTips" })
+                </li> 
+                <li>
+                    <span class="item_name" style="width: 120px;"></span>
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+        </div>
+    }
+</section>
+@section scripts{ 
+    <script type="text/javascript" src="~/Scripts/PreviewImage.js"></script>
+}

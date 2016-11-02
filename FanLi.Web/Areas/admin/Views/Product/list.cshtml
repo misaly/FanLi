@@ -1,0 +1,74 @@
+﻿@model FanLi.Web.Areas.admin.Models.ProductListViewModel
+@using Webdiyer.WebControls.Mvc;
+@{
+    ViewBag.Title = "listRole";
+}
+<section>
+     <div class="rightTab">
+        <ul>
+            <li class="current"><a href="/admin/Product/">产品列表</a></li>
+            <li><a href="/admin/Product/add">添加产品</a></li>
+            <li><a href="/admin/Product/listType">产品类型</a></li>
+            <li><a href="/admin/Product/addType">添加产品类型</a></li>
+        </ul>
+        </div>
+        <div class="page_title">
+            <h2 class="fl"></h2>
+            @Html.ActionLink("添加", "add", "Product", new { @class = "fr top_rt_btn" })
+        </div>
+        <table class="table">
+            <tr>
+                <th>产品名称</th>
+                <th>图片</th>
+                <th>原价</th>
+                <th>售价</th>
+                <th>让价</th>
+                <th>积分</th>
+                <th>会员积分</th>
+                <th>销售数量</th>
+                <th>所属商城</th>
+                <th>状态</th>
+
+                <th>操作</th>
+                
+            </tr>
+            @foreach (var info in Model.Infos)
+            {
+                <tr>
+                    <td>@info.proName</td>
+                    <td><img src="@info.Pic" style="max-height:30px" /></td>
+                    <td>@info.OrigPrice</td>
+
+                    <th>@info.Price</th>
+                    <th>@info.OfferPrice</th>
+                    <th>@info.Score</th>
+                    <th>@info.VipScore</th>
+                    <th>@info.SellNum</th>
+                    <th>@info.Malls.Name</th>
+                    <th>
+                    @if (info.IsCheck == 0) {<span>未审核</span> }
+                    else if (info.IsCheck == 1){<span>审核通过</span> }
+                    else if (info.IsCheck == 2){<span>审核未通过</span> }
+
+                        @if (info.IsShow)
+                        {<span>上架</span> }
+                        else  
+                        {<span>下架</span> }
+                    </th>
+                    <td><a href="">修改</a></td>
+                </tr>
+            }
+        </table>
+        <aside class="paging">
+            @Html.Pager(Model.Infos, new PagerOptions
+   {
+       PageIndexParameterName = "id",
+       FirstPageText = "首页",
+       PrevPageText = "上一页",
+       NextPageText = "下一页",
+       LastPageText = "末页",
+   })
+            @Html.Raw("共：") @Model.Infos.TotalItemCount @Html.Raw("页，")
+            @Model.Infos.CurrentPageIndex @Html.Raw("/") @Model.Infos.TotalPageCount @Html.Raw("页")
+        </aside>
+</section>

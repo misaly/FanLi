@@ -1,0 +1,64 @@
+﻿@using FanLi.Models
+@model FanLi.Web.Areas.admin.Models.AddAdminViewModel
+@{
+    ViewBag.Title = "add";
+}
+
+<section>
+
+    <div class="rightTab">
+        <ul>
+            <li><a href="/admin/Admin/">管理员列表</a></li>
+            <li class="current"><a href="/admin/Admin/add">添加管理员</a></li>
+            <li><a href="/admin/Admin/EditPwd">修改密码</a></li>
+            <li><a href="/admin/Admin/addRole">添加角色</a></li>
+            <li><a href="/admin/Admin/listRole">角色列表</a></li>
+        </ul>
+    </div>
+    <div>
+       @using (Html.BeginForm())
+       {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <ul class="ulColumn2">
+                <li>
+                    <span class="item_name">用户名</span>
+                    
+                    @Html.TextBoxFor(model => model.UserName,new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "errorTips" })
+                    
+                </li>
+                <li>
+                    <span class="item_name">密码</span>
+                   
+                    @Html.TextBoxFor(model => model.LoginPwd,new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.LoginPwd, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    <span class="item_name">确认密码</span>
+                    
+                    @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    <span class="item_name">真实姓名</span>
+                    
+                    @Html.TextBoxFor(model => model.TrueName, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.TrueName, "", new { @class = "errorTips" })
+                </li>
+
+                <li>
+                    <span class="item_name">角色</span> 
+                    @Html.DropDownListFor(m => m.RoleId, ViewData["RoleList"] as IEnumerable<SelectListItem>) 
+                    <span class="errorTips"></span>
+                </li>
+
+                <li>
+                    <span class="item_name" style="width: 120px;"></span> 
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+        }
+    </div>
+    
+</section> 

@@ -1,0 +1,49 @@
+﻿@model FanLi.Web.Areas.admin.Models.ChangePasswordViewModel
+@{
+    ViewBag.Title = "EditPwd";
+}
+
+<section>
+    @using (Html.BeginForm("EditPwd", "Admin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="rightTab">
+            <ul>
+                <li><a href="/admin/Admin/">管理员列表</a></li>
+                <li><a href="/admin/Admin/add">添加管理员</a></li>
+                <li class="current"><a href="/admin/Admin/EditPwd">修改密码</a></li>
+                <li><a href="/admin/Admin/addRole">添加角色</a></li>
+                <li><a href="/admin/Admin/listRole">角色列表</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="ulColumn2">
+                <li>
+                    @Html.LabelFor(model => model.OriginalPassword, new { @class = "item_name" })
+                    @Html.PasswordFor(model => model.OriginalPassword, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.OriginalPassword, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Password, new { @class = "item_name" })
+
+                    @Html.PasswordFor(model => model.Password, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errorTips" })
+
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.ConfirmPassword, new { @class = "item_name" })
+
+                    @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "errorTips" })
+
+                </li> 
+                <li>
+                    <span class="item_name" style="width: 120px;"></span>
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+        </div>
+    }
+</section>

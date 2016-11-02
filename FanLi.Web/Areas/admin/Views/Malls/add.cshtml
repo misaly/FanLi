@@ -1,0 +1,143 @@
+﻿@model FanLi.Web.Areas.admin.Models.MallsAddViewModel
+@using FanLi.Models
+@{
+    ViewBag.Title = "add";
+}
+
+<section>
+
+    <div class="rightTab">
+        <ul>
+            <li><a href="/admin/Malls/">商城列表</a></li>
+            <li class="current"><a href="/admin/Malls/add">添加商城</a></li>
+            <li><a href="/admin/Malls/addType">添加商城分类</a></li>
+            <li><a href="/admin/Malls/listType">分类列表</a></li>
+        </ul>
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <ul class="ulColumn2">
+                <li>
+                    @Html.LabelFor(model => model.Name, new { @class = "item_name" })：
+
+                    @*@Html.TextBoxFor(model => model.Name, new { @class = "textbox textbox_295" })*@
+                    <input type="text" id="Name" name="Name" class="textbox textbox_295" placeholder="请输入商城的名称" />
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorTips" })
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.EnName, new { @class = "item_name" })：
+                    <input type="text" id="EnName" name="EnName" class="textbox textbox_295" placeholder="请输入英文名或拼音，例如taobao" />                   
+                    @Html.ValidationMessageFor(model => model.EnName, "", new { @class = "errorTips" })
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.LetterKey, new { @class = "item_name" })：
+                    <input type="text" id="LetterKey" name="LetterKey" class="textbox textbox_295" placeholder="输入字母A-Z，例如淘宝输入T" /> 
+                    @Html.ValidationMessageFor(model => model.LetterKey, "", new { @class = "errorTips" }) 
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Logo, new { @class = "item_name" })：
+
+                    @Html.TextBoxFor(model => model.Logo, new { @class = "textbox textbox_295" })
+                    @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "errorTips" })
+
+                </li>
+                <li>
+
+                    @Html.LabelFor(model => model.MallTypeId, new { @class = "item_name" })：
+
+                    <select id="MallTypeId" name="MallTypeId" class="select">
+                        <option value="0">请选择</option>
+                        @{ List<MallType> listtype = (List<MallType>)ViewData["mtypelist"]; }
+                        @if (listtype != null && listtype.Count > 0)
+                        {
+                            foreach (MallType item in listtype)
+                            {
+                                <option value="@item.Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(model => model.MallTypeId, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.MaxDisc, new { @class = "item_name" })：
+                    <input type="text" id="MaxDisc" name="MaxDisc" class="textbox textbox_295" placeholder="请输入最高折扣，例如80%或者100元" />  
+                    @Html.ValidationMessageFor(model => model.MaxDisc, "", new { @class = "errorTips" })
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Score, new { @class = "item_name" })：
+
+                    
+                    <select id="Score" class="select">
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Score, "", new { @class = "errorTips" }) 
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Intro, new { @class = "item_name" })：
+
+                     
+                    <textarea name="Intro" id="Intro" cols="40" rows="4" placeholder="请输入商城的简介" style="border:1px #139667 solid;"></textarea>
+                    @Html.ValidationMessageFor(model => model.Intro, "", new { @class = "errorTips" })
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Url, new { @class = "item_name" })：
+                    <input type="text" id="Url" name="Url" class="textbox textbox_295" placeholder="请输入商城的连接地址" />  
+                     
+                    @Html.ValidationMessageFor(model => model.Url, "", new { @class = "errorTips" })
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Detail, new { @class = "item_name" })： 
+                    <div style="display: inline-table;">
+                        @Html.TextAreaFor(model => model.Detail)
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Detail, "", new { @class = "error" })
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Matter, new { @class = "item_name" })：
+
+                    <div style="display: inline-table;">
+                        @Html.TextAreaFor(model => model.Matter)
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Matter, "", new { @class = "error" })
+
+                </li>
+               
+                 
+                <li>
+                    <span class="item_name" style="width: 120px;"></span>
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+                            }
+    </div>
+    @section scripts{
+        <script type="text/javascript" src="~/Scripts/KindEditor/kindeditor-min.js"></script>
+
+        <script>
+            KindEditor.ready(function (K) {
+                window.editor = K.create('#Detail', {
+                    height: '300px'
+                });
+                window.editor = K.create('#Matter', {
+                    height: '300px'
+                })
+            }); 
+
+        </script>
+    }
+</section> 

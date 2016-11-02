@@ -1,0 +1,69 @@
+﻿@model FanLi.Web.Areas.admin.Models.AdminRoleAddViewModel
+@using FanLi.Common
+@{
+    ViewBag.Title = "addRole";
+}
+
+<section>
+   
+        <div class="rightTab">
+            <ul>
+                <li><a href="/admin/Admin/">管理员列表</a></li>
+                <li><a href="/admin/Admin/add">添加管理员</a></li>
+                <li><a href="/admin/Admin/EditPwd">修改密码</a></li>
+                <li class="current"><a href="/admin/Admin/addRole">添加角色</a></li>
+                <li><a href="/admin/Admin/listRole">角色列表</a></li>
+            </ul>
+        </div>
+        <div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+            <ul class="ulColumn2">
+                <li>
+                    @Html.LabelFor(model => model.RoleName, new { @class = "item_name" })：
+                    @Html.TextBoxFor(model => model.RoleName, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.RoleName, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Description, new { @class = "item_name" })：
+
+                    @Html.TextAreaFor(model => model.Description, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "error" })
+                </li>
+
+                <li>
+                    功能权限:
+                    <div style="display:inline-block;">
+                        @foreach (commonModel item in (List<commonModel>)ViewData["PowerList"])
+                        {
+                            <input type="checkbox" name="RolePowder" value="@item.id" />@item.value
+                        }
+                    </div>
+                    @Html.HiddenFor(model => model.RolePower)
+                </li>
+                <li>
+                    <span class="item_name" style="width: 120px;"></span>
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+}
+        </div> 
+</section>
+@section scripts{
+    <script>
+        $(document).ready(function(){
+
+            $("form").submit(function(e){
+                var chk_value =[];
+                var power='';
+                $('input[name="RolePowder"]:checked').each(function () {
+                    if (this.checked) power += this.value + ',';
+                })
+                $("#RolePower").val(power);
+           
+      });
+  });
+</script>
+}

@@ -1,0 +1,54 @@
+﻿@model FanLi.Web.Areas.admin.Models.AdListViewMode
+@using Webdiyer.WebControls.Mvc;
+@{
+    ViewBag.Title = "list";
+}
+
+<section>
+    <div class="rightTab">
+        <ul>
+            <li class="current"><a href="/admin/AdList/">广告列表</a></li>
+            <li><a href="/admin/AdList/add">添加广告</a></li>
+            <li><a href="/admin/AdList/listPosition">广告位列表</a></li>
+            <li><a href="/admin/AdList/addPosition">添加广告位</a></li>
+        </ul>
+    </div>
+    <div class="page_title"></div>
+    <table class="table">
+        <tr>
+            <th>标题</th>
+            <th>广告图</th>
+            <th>广告位</th>
+            <th>是否启用</th>
+            <th>操作</th>
+        </tr>
+        @foreach (var info in Model.Infos)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => info.Title)</td>
+                <td><img src="@info.Img" /></td>
+                <th>@info.AdPosition.Name</th>
+                <th>@info.IsShow?"是":"否"</th>
+                <td><a href="">修改</a></td>
+            </tr>
+        }
+    </table>
+    <aside class="paging">
+        @Html.Pager(Model.Infos, new PagerOptions
+   {
+       PageIndexParameterName = "page",
+       FirstPageText = "首页",
+       PrevPageText = "上一页",
+       NextPageText = "下一页",
+       LastPageText = "末页",
+       ContainerTagName = "span",
+       AutoHide = true,
+       MaximumPageIndexItems = 6,
+       ShowNumericPagerItems = true,
+   })
+        @Html.Raw("共：") @Model.Infos.TotalItemCount @Html.Raw("条，")
+        @Model.Infos.CurrentPageIndex @Html.Raw("/") @Model.Infos.TotalPageCount @Html.Raw("页")
+    </aside> 
+
+</section>
+

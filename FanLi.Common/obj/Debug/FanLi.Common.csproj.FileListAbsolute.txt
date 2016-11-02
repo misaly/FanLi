@@ -1,0 +1,6 @@
+E:\项目\fanli\trunk\FanLi\FanLi.Common\bin\Debug\FanLi.Common.dll
+E:\项目\fanli\trunk\FanLi\FanLi.Common\bin\Debug\FanLi.Common.pdb
+E:\项目\fanli\trunk\FanLi\FanLi.Common\bin\Debug\Newtonsoft.Json.dll
+E:\项目\fanli\trunk\FanLi\FanLi.Common\bin\Debug\Newtonsoft.Json.xml
+E:\项目\fanli\trunk\FanLi\FanLi.Common\obj\Debug\FanLi.Common.dll
+E:\项目\fanli\trunk\FanLi\FanLi.Common\obj\Debug\FanLi.Common.pdb

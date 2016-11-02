@@ -1,0 +1,109 @@
+﻿@model FanLi.Web.Areas.admin.Models.HelpAddViewModel
+@using FanLi.Models
+@{
+    ViewBag.Title = "add";
+}
+
+<section>
+
+    <div class="rightTab">
+        <ul>
+            <li><a href="/admin/Help/">帮助文档列表</a></li>
+            <li class="current"><a href="/admin/Help/add">添加帮助文档</a></li>
+            <li><a href="/admin/Help/addType">添加帮助分类</a></li>
+            <li><a href="/admin/Help/listType">分类列表</a></li>
+        </ul>
+    </div> 
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <ul class="ulColumn2">
+                <li>
+                    @Html.LabelFor(model => model.Title, new { @class = "item_name" })：
+
+                    @Html.TextBoxFor(model => model.Title, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "errorTips" })
+
+                </li>
+                <li>
+                   
+                    @Html.LabelFor(model => model.HelpTypeId, new { @class = "item_name" })：
+
+                    <select id="selTypeOne">
+                        <option value="0">请选择</option>
+                        @{ List<HelpType> listtypeone = (List<HelpType>)ViewData["htypeone"]; }
+                        @if (listtypeone != null && listtypeone.Count > 0)
+                        {
+                            foreach (HelpType item in listtypeone)
+                            {
+                                <option value="@item.Id">@item.TName</option>
+                            }
+                        }
+                    </select>
+                    <select id="selTypeTwo">
+                        <option value="0">请选择</option>
+                    </select>
+                    @Html.HiddenFor(model=>model.HelpTypeId)
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Contents, new { @class = "item_name" })
+                    <div style="display: inline-table;">
+                        @Html.TextAreaFor(model => model.Contents)
+                         
+                    </div>
+
+                </li> 
+                <li>
+                    <span class="item_name" style="width: 120px;"></span>
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+                            }
+    </div>
+    @section scripts{
+    <script type="text/javascript" src="~/Scripts/KindEditor/kindeditor-min.js"></script>
+   
+        <script>
+            KindEditor.ready(function (K) {
+                window.editor = K.create('#Contents', {
+                    height: '500px'
+                });
+            });
+            $(document).ready(function () {
+                $("#selTypeOne").on("change", function () {
+                    $("#HelpTypeId").val($(this).val());
+                    //$("#selTypeTwo").show();
+                    var ddl = $("#selTypeTwo");
+                    ddl.empty();
+                    ddl.append("<option>--请选择--</option>");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/admin/Help/GetHelpType/",
+                        data: { "pid": $(this).val() },
+                        dataType: "Json",
+                        success: function (data) {
+                            data = eval(data); //转成Json对象
+
+                            if (data != "") {
+                                $(data).each(function (key) {
+                                    var opt = $("<option></option>").text(data[key].TName).val(data[key].Id);
+                                    ddl.append(opt);
+
+                                });
+                            }
+
+                        }
+                    });
+                })
+                $("#selTypeTwo").on("change", function () {
+                    $("#HelpTypeId").val($(this).val());
+                })
+            });
+
+        </script>
+    }
+</section> 

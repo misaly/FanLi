@@ -1,0 +1,118 @@
+﻿@model FanLi.Web.Areas.admin.Models.ProductTypeAddViewModel
+@using FanLi.Models
+@{
+    ViewBag.Title = "addType";
+}
+
+<section>
+
+    <div class="rightTab">
+        <ul>
+            <li><a href="/admin/Product/">产品列表</a></li>
+            <li><a href="/admin/Product/add">添加产品</a></li>
+            <li><a href="/admin/Product/listType">产品类型</a></li>
+            <li class="current"><a href="/admin/Product/addType">添加产品类型</a></li>
+        </ul>
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <ul class="ulColumn2">
+                <li>
+                    @Html.LabelFor(model => model.tpName, new { @class = "item_name" })：
+
+                    @Html.TextBoxFor(model => model.tpName, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.tpName, "", new { @class = "errorTips" })
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.tpIcon, new { @class = "item_name" })：
+                    @Html.TextBoxFor(model => model.tpIcon, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.tpIcon, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.ParentId, new { @class = "item_name" })： 
+                    @*@Html.DropDownListFor(m => m.ParentId, ViewData["ptypone"] as IEnumerable<SelectListItem>)*@
+                    <select id="ptypone">
+                        <option value="0">请选择</option>
+                        @{ List<ProductType> listtypeone = (List<ProductType>)ViewData["ptypone"]; }
+                        @if (listtypeone!=null &&listtypeone.Count> 0) { 
+                        foreach (ProductType item in listtypeone)
+                        {
+                            <option value="@item.Id">@item.tpName</option> 
+                        }
+                        }
+                    </select>
+                    <select id="ptypetwo" style="display:none"> </select>
+                    <select id="ptypethree" style="display:none"></select>
+                    <input id="ParentId" name="ParentId" value="0" type="hidden"/>
+                    <input id="tpLevel" name="tpLevel" value="1" type="hidden" />
+                    @Html.ValidationMessageFor(model => model.ParentId, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.tpSort, new { @class = "item_name" })：
+                    @Html.TextBoxFor(model => model.tpSort, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.tpSort, "", new { @class = "errorTips" })
+                </li>
+                 
+
+                <li>
+                    <span class="item_name" style="width: 120px;"></span>
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+        }
+    </div>
+    @section scripts{
+        <script> 
+            $(document).ready(function () {
+                $('#ptypone').on('change', function () {
+                    $("#tpLevel").val("2");
+                    $("#ParentId").val($(this).val());
+                    $("#ptypetwo").show();
+                    var ddl = $("#ptypetwo");
+                    ddl.empty();
+                    ddl.append("<option>--请选择--</option>");
+                    $("#ptypethree").hide();
+                    $("#ptypethree").empty();
+
+                    ptypeselect(2, $(this).val());
+                });
+                $("#ptypetwo").on("change", function () {
+                    $("#tpLevel").val("3");
+                    $("#ParentId").val($(this).val());
+                    $("#ptypethree").show();
+                    var ddl = $("#ptypethree");
+                    ddl.empty();
+                    ddl.append("<option>--请选择--</option>");
+
+                    ptypeselect(3, $(this).val());
+                });
+              
+                 
+            });
+            function ptypeselect(level,pid) {
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/Product/GetproductType/",
+                    data: { "level": level, "pid": pid },
+                    dataType: "Json",
+                    success: function (data) { 
+                        data = eval(data); //转成Json对象
+
+                        if (data != "") {
+                            $(data).each(function (key) {
+                                var opt = $("<option></option>").text(data[key].tpName).val(data[key].id);
+                                ddl.append(opt);
+
+                            });
+                        }
+
+                    }
+                });
+            }
+        </script>
+    }
+</section> 

@@ -1,0 +1,47 @@
+﻿@model FanLi.Web.Areas.admin.Models.PackageListViewModel
+@using Webdiyer.WebControls.Mvc;
+@{
+    ViewBag.Title = "listRole";
+}
+<section>
+    <div class="rightTab">
+        <ul>
+            <li><a href="/admin/Logistical/">物流公司列表</a></li>
+            <li><a href="/admin/Logistical/add">添加物流公司</a></li>
+            <li class="current"><a href="/admin/Package/">上门收件</a></li>
+        </ul>
+    </div>
+    <div class="page_title">
+    </div>
+    <table class="table">
+        <tr>
+            <th>姓名</th>
+            <th>图标</th>
+            <th>操作</th>
+        </tr>
+        @foreach (var info in Model.infos)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => info.Name)</td>
+                <td><img src="@info.Icon" style="max-height:30px;" /></td>
+                <td><a href="">修改</a></td>
+            </tr>
+        }
+    </table>
+    <aside class="paging">
+        @Html.Pager(Model.infos, new PagerOptions
+   {
+       PageIndexParameterName = "page",
+       FirstPageText = "首页",
+       PrevPageText = "上一页",
+       NextPageText = "下一页",
+       LastPageText = "末页",
+       ContainerTagName = "span",
+       AutoHide = true,
+       MaximumPageIndexItems = 6,
+       ShowNumericPagerItems = true,
+   })
+        @Html.Raw("共：") @Model.infos.TotalItemCount @Html.Raw("条，")
+        @Model.infos.CurrentPageIndex @Html.Raw("/") @Model.infos.TotalPageCount @Html.Raw("页")
+    </aside>
+</section>

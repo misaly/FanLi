@@ -1,0 +1,45 @@
+﻿@model FanLi.Web.Areas.admin.Models.AdPositionAddViewModel
+@{
+    ViewBag.Title = "添加广告";
+}
+
+<section>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="rightTab">
+            <ul>
+                <li><a href="/admin/AdList/">广告列表</a></li>
+                <li><a href="/admin/AdList/add">添加广告</a></li>
+                <li><a href="/admin/AdList/listPosition">广告位列表</a></li>
+                <li class="current"><a href="/admin/AdList/addPosition">添加广告位</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="ulColumn2">
+                <li>
+                    @Html.LabelFor(model => model.Name, new { @class = "item_name" })
+                    @Html.TextBoxFor(model => model.Name, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Intro, new { @class = "item_name" })
+                    @Html.TextBoxFor(model => model.Intro, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Intro, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Count, new { @class = "item_name" })
+                    @Html.TextBoxFor(model => model.Count, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Count, "", new { @class = "errorTips" }) 
+                </li>
+                
+                <li>
+                    <span class="item_name" style="width: 120px;"></span>
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+        </div>
+    }
+</section>
+

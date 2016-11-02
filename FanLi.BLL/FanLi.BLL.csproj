@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DBE5004F-BFF6-4456-918B-0ECCC67D735F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FanLi.BLL</RootNamespace>
+    <AssemblyName>FanLi.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdListBLL.cs" />
+    <Compile Include="AdminBLL.cs" />
+    <Compile Include="AdminFunctionBLL.cs" />
+    <Compile Include="AdminRoleBLL.cs" />
+    <Compile Include="AdPositionBLL.cs" />
+    <Compile Include="CitysBLL.cs" />
+    <Compile Include="common\BaseService.cs" />
+    <Compile Include="FavoriteBLL.cs" />
+    <Compile Include="HelpBLL.cs" />
+    <Compile Include="HelpTypeBLL.cs" />
+    <Compile Include="LogisticalBLL.cs" />
+    <Compile Include="MallsBLL.cs" />
+    <Compile Include="MallTypeBLL.cs" />
+    <Compile Include="NewsBLL.cs" />
+    <Compile Include="PackageBLL.cs" />
+    <Compile Include="ProductsBLL.cs" />
+    <Compile Include="ProductTypeBLL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserBLL.cs" />
+    <Compile Include="VideoCommentBLL.cs" />
+    <Compile Include="VideoBLL.cs" />
+    <Compile Include="VideoZanBLL.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FanLi.DAL\FanLi.DAL.csproj">
+      <Project>{94d4c06b-520f-4cd0-82ae-1a2e8d8d64c5}</Project>
+      <Name>FanLi.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FanLi.IBLL\FanLi.IBLL.csproj">
+      <Project>{e4c7d039-0493-4547-9b02-ecbeb4a8bdea}</Project>
+      <Name>FanLi.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FanLi.IDAL\FanLi.IDAL.csproj">
+      <Project>{9e07bfbe-c7be-4cef-9711-ab878e5ab75e}</Project>
+      <Name>FanLi.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FanLi.Models\FanLi.Models.csproj">
+      <Project>{cb6cc568-a94d-433a-8833-8b683be0b514}</Project>
+      <Name>FanLi.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

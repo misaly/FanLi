@@ -1,0 +1,60 @@
+﻿@model FanLi.Web.Areas.admin.Models.AdminListViewMode
+@using Webdiyer.WebControls.Mvc;
+@{
+    ViewBag.Title = "list";
+}
+<section>
+    <div class="rightTab">
+        <ul>
+            <li class="current"><a href="/admin/Admin/">管理员列表</a></li>
+            <li><a href="/admin/Admin/add">添加管理员</a></li>
+            <li><a href="/admin/Admin/EditPwd">修改密码</a></li>
+            <li><a href="/admin/Admin/addRole">添加角色</a></li>
+            <li><a href="/admin/Admin/listRole">角色列表</a></li>
+        </ul>
+    </div>
+    <div class="page_title">
+        <h2 class="fl"></h2>
+        @Html.ActionLink("添加", "add", "Admin", new { @class = "fr top_rt_btn" })
+    </div>
+    <table class="table">
+        <tr>
+            <th>帐号</th>
+            <th>真实姓名</th>
+            <th>角色</th>
+            <th>状态</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        @foreach (var info in Model.Infos)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => info.LoginName)</td>
+                <td>@Html.DisplayFor(model => info.TrueName)</td>
+                <td>@Html.DisplayFor(model => info.AdminRole.RoleName)</td>
+                <td>@if (info.Status == 1)
+                { <span>锁定</span> }
+                else
+                { <span> 正常</span>} </td>
+                <td>@Html.DisplayFor(model => info.CreateTime)</td>
+                <td><a href="">修改</a></td>
+            </tr>
+        }
+    </table>
+    <aside class="paging">
+        @Html.Pager(Model.Infos, new PagerOptions
+   {
+       PageIndexParameterName = "page",
+       FirstPageText = "首页",
+       PrevPageText = "上一页",
+       NextPageText = "下一页",
+       LastPageText = "末页",
+       ContainerTagName = "span",
+       AutoHide = true,
+       MaximumPageIndexItems = 6,
+       ShowNumericPagerItems = true,
+        })
+        @Html.Raw("共：") @Model.Infos.TotalItemCount @Html.Raw("条，")
+        @Model.Infos.CurrentPageIndex @Html.Raw("/") @Model.Infos.TotalPageCount @Html.Raw("页")
+    </aside>
+</section>

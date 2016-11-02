@@ -1,0 +1,70 @@
+﻿@model FanLi.Web.Areas.admin.Models.LogisticalAddViewModel
+@{
+    ViewBag.Title = "添加物流公司信息";
+}
+
+<section>
+    @using (Html.BeginForm("add", "Logistical", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="rightTab">
+            <ul>
+                <li><a href="/admin/Logistical/">物流公司列表</a></li>
+                <li class="current"><a href="/admin/Logistical/add">添加物流公司</a></li>
+                <li><a href="/admin/Package/">上门收件</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="ulColumn2">
+                <li>
+                    @Html.LabelFor(model => model.Name, new { @class = "item_name" })
+                    @Html.TextBoxFor(model => model.Name, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Icon, new { @class = "item_name" })
+
+                    <div class="divUpload" id="divIMG">
+                        <img id="imgIMG"  class="fileuploadImg"/>
+                       
+                        <div class="uploadTip"><span>选择图片</span></div>
+                      
+                        <input type="file" name="fileIMG" id="fileIMG" class="files" onchange="PreviewImage(this,'imgIMG','divIMG')" />
+                    </div>
+                    
+
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Detail, new { @class = "item_name" })
+                    <div style="display: inline-table;">
+                        @Html.TextAreaFor(model => model.Detail)
+                         
+                    </div>
+                </li>
+                <li>
+                    @Html.LabelFor(model => model.Url, new { @class = "item_name" })
+                    @Html.TextBoxFor(model => model.Url, new { @class = "textbox textbox_225" })
+                    @Html.ValidationMessageFor(model => model.Url, "", new { @class = "errorTips" })
+                </li>
+                <li>
+                    <span class="item_name" style="width: 120px;"></span>
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+        </div>
+    }
+</section>
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/KindEditor/kindeditor-min.js"></script>
+    <script type="text/javascript" src="~/Scripts/PreviewImage.js"></script>
+        <script type="text/javascript">
+            //编辑框
+            KindEditor.ready(function (K) {
+                window.editor = K.create('#Detail', {
+                    height: '500px'
+                });
+            });
+        </script>
+    
+}

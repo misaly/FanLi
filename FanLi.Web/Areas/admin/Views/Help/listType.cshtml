@@ -1,0 +1,39 @@
+﻿
+@model FanLi.Web.Areas.admin.Models.HelpTypeListViewModel
+ 
+@{
+    ViewBag.Title = "listType";
+}
+
+<section>
+    <div class="rightTab">
+        <ul>
+            <li><a href="/admin/Help/">帮助文档列表</a></li>
+            <li><a href="/admin/Help/add">添加帮助文档</a></li>
+            <li><a href="/admin/Help/addType">添加帮助分类</a></li>
+            <li class="current"><a href="/admin/Help/listType">分类列表</a></li>
+        </ul>
+    </div> 
+    <div class="page_title"></div>
+    <table class="table">
+        <tr>
+            <th>类型名称</th> 
+            <th>上一级</th> 
+            <th>排序</th>
+            <th>操作</th>
+        </tr>
+        @foreach (var info in Model.infos)
+        {
+            <tr>
+                <td>@info.TName</td>
+                 
+                <td>@Model.parentName</td>
+                <td>@info.Sort</td>
+                <td>@if (info.ParentId==0)
+                { <a href="/admin/Product/listType?pid=@info.Id">下一级</a> } <a href="">修改</a></td>
+            </tr>
+        }
+    </table>
+    
+</section>
+

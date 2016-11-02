@@ -1,0 +1,35 @@
+﻿@model FanLi.Web.Areas.admin.Models.MallTypeViewListModel
+
+@{
+    ViewBag.Title = "listType";
+}
+
+<section>
+    <div class="rightTab">
+        <ul>
+            <li><a href="/admin/Malls/">商城列表</a></li>
+            <li><a href="/admin/Malls/add">添加商城</a></li>
+            <li><a href="/admin/Malls/addType">添加商城分类</a></li>
+            <li class="current"><a href="/admin/Malls/listType">分类列表</a></li>
+        </ul>
+    </div>
+    <div class="page_title"></div>
+    <table class="table">
+        <tr>
+            <th>类型名称</th>
+            <th>包含的商城数量</th>
+            
+            <th>操作</th>
+        </tr>
+        @foreach (var info in Model.Infos)
+        {
+            <tr>
+                <td>@info.Name</td>
+
+                <td>@info.MallNum</td>
+                 <td><a href="">修改</a></td>
+        </tr>
+        }
+    </table>
+
+</section>

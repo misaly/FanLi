@@ -1,0 +1,40 @@
+﻿@model FanLi.Web.Areas.admin.Models.ProductTypeListViewModel
+@{
+    ViewBag.Title = "listRole";
+}
+<section>
+    <div class="rightTab">
+        <ul>
+            <li><a href="/admin/Product/">产品列表</a></li>
+            <li><a href="/admin/Product/add">添加产品</a></li>
+            <li class="current"><a href="/admin/Product/listType">产品类型</a></li>
+            <li><a href="/admin/Product/addType">添加产品类型</a></li>
+        </ul>
+    </div>
+    <div class="page_title">
+        <h2 class="fl"></h2>
+        @Html.ActionLink("添加", "addType", "Product", new { @class = "fr top_rt_btn" })
+    </div>
+    <table class="table">
+        <tr>
+            <th>类型名称</th>
+            <th>图标</th>
+            <th>上一级</th>
+            <th>等级</th>
+            <th>排序</th>
+            <th>操作</th>
+        </tr>
+        @foreach (var info in Model.productTypeList)
+        {
+            <tr>
+                <td>@info.tpName</td>
+                <td><img src="@info.tpIcon" style="max-height:24px" /></td>
+                <td>@Model.parentName</td>
+                <td>@info.tpLevel</td>
+                <td>@info.tpSort</td>
+                <td>@if (info.tpLevel < 3) { <a href="/admin/Product/listType?pid=@info.Id">下一级</a> } <a href="">修改</a></td>
+            </tr>
+        }
+    </table>
+     
+</section>

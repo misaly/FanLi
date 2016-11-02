@@ -1,0 +1,64 @@
+﻿@model FanLi.Web.Areas.admin.Models.NewsAddViewModel
+@using FanLi.Models
+@{
+    ViewBag.Title = "add";
+}
+
+<section>
+
+    <div class="rightTab">
+        <ul>
+            <li><a href="/admin/News/">新闻列表</a></li>
+            <li class="current"><a href="/admin/News/add">添加新闻</a></li> 
+        </ul>
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <ul class="ulColumn2">
+                <li>
+                    @Html.LabelFor(model => model.Title, new { @class = "item_name" })： 
+                    <input type="text" id="Title" name="Title" class="textbox textbox_295" placeholder="请输入新闻标题" />
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "errorTips" })
+
+                </li> 
+                <li>
+                    @Html.LabelFor(model => model.Type, new { @class = "item_name" })： 
+                    <select id="Type" name="Type" class="select">
+                        <option value="1">新闻</option>
+                        <option value="2">公告</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "errorTips" })
+                </li> 
+                <li>
+                    @Html.LabelFor(model => model.Contents, new { @class = "item_name" })：
+                    <div style="display: inline-table;">
+                        @Html.TextAreaFor(model => model.Contents)
+
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Contents, "", new { @class = "error" })
+
+                </li> 
+                <li>
+                    <span class="item_name" style="width: 120px;"></span>
+                    <input type="submit" value="提交" class="btn btn-default" />
+                </li>
+            </ul>
+                            }
+    </div>
+    @section scripts{
+        <script type="text/javascript" src="~/Scripts/KindEditor/kindeditor-min.js"></script>
+
+        <script>
+            KindEditor.ready(function (K) {
+                window.editor = K.create('#Contents', {
+                    height: '300px'
+                });
+               
+            });
+
+        </script>
+    }
+</section> 

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+  <adListPosition>
+    <item>
+      <id>1</id>
+      <value>首页顶部</value>
+    </item>
+    <item>
+      <id>2</id>
+      <value>首页底部</value>
+    </item>
+  </adListPosition>
+  <adminPower>
+    <item>
+      <id>1</id>
+      <value>添加管理员</value>
+    </item>
+    <item>
+      <id>2</id>
+      <value>管理员列表</value>
+    </item>
+  </adminPower>
+</Root>
